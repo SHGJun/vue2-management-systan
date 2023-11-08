@@ -11,6 +11,7 @@ export default {
     return {};
   },
   created() {
+    if(window.location.pathname=='/login') return
     const stateMessage = getTimeState();
     this.$notify({
           title: '消息提示',

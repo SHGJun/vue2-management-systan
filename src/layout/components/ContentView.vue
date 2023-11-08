@@ -12,6 +12,8 @@
     /* 重点！ 减号两边需要空格，否则无效 */
     height: calc(100% - 124px);
     /* opacity: 0; */
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .fade-transform-enter, .fade-transform-leave-to{

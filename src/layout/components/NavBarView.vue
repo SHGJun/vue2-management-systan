@@ -23,7 +23,7 @@
       <div v-for="item in menuListData" :key="item.id">
         <el-submenu :index="item.path" v-if="item.children">
           <template slot="title">
-            <i class="el-icon-location"></i>
+            <i :class="item.icon"></i>
             <span>{{ item.title }}</span>
           </template>
           <el-menu-item
@@ -34,7 +34,7 @@
           >
         </el-submenu>
         <el-menu-item :index="item.path" v-else>
-          <i class="el-icon-menu"></i>
+          <i :class="item.icon"></i>
           <span slot="title">{{ item.title }}</span>
         </el-menu-item>
       </div>

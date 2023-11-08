@@ -2,23 +2,16 @@ export default [
     {
         title: "首页",
         path: '/',
+        icon: 'el-icon-document',
     },
     {
-        title:'图表',
-        path:'/chart'
+        title: '图表',
+        path: '/chart',
+        icon: 'el-icon-menu',
     },
     {
         title: "地图",
-        path: '/map',
-        children: [
-            {
-                title: "百度地图",
-                path: '/baiduMap'
-            },
-            {
-                title: "高德地图",
-                path: '/gaodeMap'
-            },
-        ],
+        path: '/baiduMap',
+        icon: 'el-icon-location',
     },
 ]

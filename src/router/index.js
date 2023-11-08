@@ -6,7 +6,6 @@ import HomePage from '@/views/Home/HomePage.vue'
 import LoginPage from '@/views/Login/LoginPage.vue'
 import TestPage from '@/views/test/TestPage.vue'
 import BaiduMapPage from '@/views/BaiduMap/BaiduMapPage.vue'
-import GaodeMapPage from '@/views/GaodeMap/GaodeMapPage.vue'
 import ChartPage from '@/views/Chart/ChartPage.vue'
 import errPage from '@/views/errPage.vue'
 
@@ -35,11 +34,7 @@ const routes = [
                 path:'/baiduMap',
                 component:BaiduMapPage
             },
-            {
-                name:'gaodeMap',
-                path:'/gaodeMap',
-                component:GaodeMapPage
-            },
+            
         ]
     },
     // 登录页面

@@ -8,6 +8,7 @@ import TestPage from '@/views/test/TestPage.vue'
 import BaiduMapPage from '@/views/BaiduMap/BaiduMapPage.vue'
 import GaodeMapPage from '@/views/GaodeMap/GaodeMapPage.vue'
 import ChartPage from '@/views/Chart/ChartPage.vue'
+import errPage from '@/views/errPage.vue'
 
 Vue.use(VueRouter)
 
@@ -52,7 +53,11 @@ const routes = [
         path:'/test',
         name:'test',
         component:TestPage
-    } 
+    },
+    {
+        path:'*',
+        component:errPage
+    }
 ]
 
 const router = new VueRouter({

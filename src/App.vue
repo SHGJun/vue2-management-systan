@@ -4,9 +4,27 @@
   </div>
 </template>
 
+<script>
+import { getTimeState } from "@/utils";
+export default {
+  data() {
+    return {};
+  },
+  created() {
+    const stateMessage = getTimeState();
+    this.$notify({
+          title: '消息提示',
+          message:stateMessage,
+          position: 'top-right'
+        });
+  },
+};
+</script>
 
 <style>
-html,body,#app{
+html,
+body,
+#app {
   height: 100%;
 }
 </style>

@@ -9,7 +9,7 @@
       </p>
       <br>
       <p>
-        GitHub：<a href="https://github.com/SHGJun/vue2-management-systan">https://github.com/SHGJun/vue2-management-systan</a>
+        GitHub：<a target="_blank" href="https://github.com/SHGJun/vue2-management-systan">https://github.com/SHGJun/vue2-management-systan</a>
       </p>
       <br>
       <p>

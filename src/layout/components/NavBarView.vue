@@ -20,20 +20,20 @@
       :collapse="isCollapse"
       :collapse-transition="false"
     >
-      <div v-for="item in menuData" :key="item.id">
-        <el-submenu :index="item.id" v-if="item.children">
+      <div v-for="item in menuListData" :key="item.id">
+        <el-submenu :index="item.path" v-if="item.children">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span>{{ item.title }}</span>
           </template>
           <el-menu-item
-            :index="child.id"
+            :index="child.path"
             v-for="child in item.children"
-            :key="child.id"
+            :key="child.path"
             >{{ child.title }}</el-menu-item
           >
         </el-submenu>
-        <el-menu-item :index="item.id" v-else>
+        <el-menu-item :index="item.path" v-else>
           <i class="el-icon-menu"></i>
           <span slot="title">{{ item.title }}</span>
         </el-menu-item>
@@ -44,30 +44,12 @@
 
 <script>
 import { mapState } from "vuex";
+import menuListData from '../menuListData';
 export default {
-  data() {
-    return {
-      menuData: [
-        {
-          title: "首页",
-          id: "1",
-        },
-        {
-          title: "用户管理",
-          id: "2",
-          children: [
-            {
-              title: "用户权限",
-              id: "2-1",
-            },
-            {
-              title: "用户设置",
-              id: "2-2",
-            },
-          ],
-        },
-      ],
-    };
+  data(){
+    return{
+      menuListData:menuListData
+    }
   },
   computed: {
     ...mapState({ isCollapse: (state) => state.navCollapse.isCollapse }),

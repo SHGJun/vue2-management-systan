@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
 import MainLayout from '@/layout/MainLayout.vue'
-// import HomePage from '@/views/Home/HomePage.vue'
+import HomePage from '@/views/Home/HomePage.vue'
 // import { getLocalStorage } from '@/utils';
 import LoginPage from '@/views/Login/LoginPage.vue'
 import TestPage from '@/views/test/TestPage.vue'
+import BaiduMapPage from '@/views/BaiduMap/BaiduMapPage.vue'
+import GaodeMapPage from '@/views/GaodeMap/GaodeMapPage.vue'
+import ChartPage from '@/views/Chart/ChartPage.vue'
 
 Vue.use(VueRouter)
 
@@ -12,9 +15,31 @@ const routes = [
     // 首页
     {
         path:'/',
+        redirect:'/home',
         name:'layout',
-        // component:HomePage
-        component:MainLayout
+        component:MainLayout,
+        children:[
+            {
+                name:'home',
+                path:'/home',
+                component:HomePage
+            },
+            {
+                name:'chart',
+                path:'/chart',
+                component:ChartPage
+            },
+            {
+                name:'baiduMap',
+                path:'/baiduMap',
+                component:BaiduMapPage
+            },
+            {
+                name:'gaodeMap',
+                path:'/gaodeMap',
+                component:GaodeMapPage
+            },
+        ]
     },
     // 登录页面
     {

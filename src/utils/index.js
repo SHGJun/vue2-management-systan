@@ -79,11 +79,11 @@ export function randomNum(min, max) {
 export function getTimeState() {
     let timeNow = new Date();
     let hours = timeNow.getHours();
-    if (hours >= 6 && hours <= 10) return `早上好，吃早饭了吗⛅`;
-    if (hours >= 10 && hours <= 14) return `中午好，吃个午饭休息休息吧 🌞`;
-    if (hours >= 14 && hours <= 18) return `下午好，该适当放松放松身体，听点音乐吧🌞`;
-    if (hours >= 18 && hours <= 24) return `晚上好，吃晚饭了吗🌛`;
-    if (hours >= 0 && hours <= 6) return `凌晨好，再不休息头发就掉光光咯🌛`;
+    if (hours >= 6 && hours <= 10) return `早上好⛅`;
+    if (hours >= 10 && hours <= 14) return `中午好🌞`;
+    if (hours >= 14 && hours <= 18) return `下午好🌞`;
+    if (hours >= 18 && hours <= 24) return `晚上好🌛`;
+    if (hours >= 0 && hours <= 6) return `凌晨好🌛`;
 }
 
 /**

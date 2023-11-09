@@ -36,27 +36,14 @@ module.exports = defineConfig({
   // devServer 支持 webpack-dev-server 所有选项
   devServer: {
     open: true,
-    host: '0.0.0.0',
-    port: 8080,
-    hot: true,
-    https: false,
     proxy: {
       "/api": {
-        target: "http://localhost:8080", // 后端服务域名
+        target: "http://127.0.0.1:9999", // 后端服务域名
         secure: false, // 是否支持 https，默认 false
         ws: true, // 是否支持 websocket
         changeOrigin: true, // 是否支持跨域
         pathRewrite: {
-          "^/": "/", // 路径片段重写
-        },
-      },
-      "/otherapi": {
-        target: "http://localhost:8080", // 后端服务域名
-        secure: false, // 是否支持 https，默认 false
-        ws: true, // 是否支持 websocket
-        changeOrigin: true, // 是否支持跨域
-        pathRewrite: {
-          "^/": "/", // 路径片段重写
+          "^/api": "", // 路径片段重写
         },
       },
     },

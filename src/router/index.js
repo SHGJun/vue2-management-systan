@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router'
 import MainLayout from '@/layout/MainLayout.vue'
 import HomePage from '@/views/Home/HomePage.vue'
-// import { getLocalStorage } from '@/utils';
+import { getLocalStorage } from '@/utils';
 import LoginPage from '@/views/Login/LoginPage.vue'
 import TestPage from '@/views/test/TestPage.vue'
 import BaiduMapPage from '@/views/BaiduMap/BaiduMapPage.vue'
@@ -62,19 +62,19 @@ const router = new VueRouter({
 })
 
 // 路由守卫
-// router.beforeEach((to,form,next)=>{
+router.beforeEach((to,form,next)=>{
 
-//      校验token是否存在
-//      const token = getLocalStorage('token');
-//     if(to.path=='login' && token){
-//         next('/');
-//         return;
-//     }
-//     if(to.path!=='/login'&&!token){
-//         next('/login');
-//         return;
-//     }
-//     next();
-// })
+    //  校验token是否存在
+     const token = getLocalStorage('shg_token');
+    if(to.path=='/login' && token){
+        next('/');
+        return;
+    }
+    if(to.path!=='/login'&&!token){
+        next('/login');
+        return;
+    }
+    next();
+})
 
 export default router;

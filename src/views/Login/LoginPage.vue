@@ -21,7 +21,7 @@
                 v-model="loginForm.username"
                 clearable
                 type="text"
-                placeholder="请输入用户名"
+                placeholder="admin"
               />
             </el-form-item>
             <!-- 密码 -->
@@ -29,7 +29,7 @@
               <el-input
                 v-model="loginForm.password"
                 type="password"
-                placeholder="请输入密码"
+                placeholder="123456"
                 clearable
                 @keyup.enter="handleLogin(loginForm)"
                 show-password
@@ -74,6 +74,8 @@
 
 <script>
 // import { getLocalStorage, setLocalStorage,removeLocalStorage } from "@/utils";
+import { handleLoginRequest } from "@/service/login";
+import { setLocalStorage } from "@/utils";
 export default {
   data() {
     return {
@@ -149,15 +151,30 @@ export default {
     // 提交表单
     handleLogin(formEl) {
       if (!formEl) return;
+
       this.$refs.loginformRef.validate((valid, fields) => {
         console.log(`fields:${fields}`);
         if (!valid) return;
         this.loading = true;
-        this.$message.success("登录成功");
-        setTimeout(() => {
-          this.loading = false;
-          this.$router.push("/");
-        }, 2000);
+        const loginForm = {
+          username:this.loginForm.username,
+          password:this.loginForm.password
+        }
+        handleLoginRequest(loginForm).then((res) => {
+          console.log(res);
+          if(res.code==200){
+            this.$message.success("登录成功");
+            this.loading = false;
+            setLocalStorage('shg_token',res.data.token)
+            this.$router.push('/');
+          }else{
+            this.$message({
+              type:'error',
+              message:res.message
+            })
+            this.loading = false;
+          }
+        });
       });
     },
   },

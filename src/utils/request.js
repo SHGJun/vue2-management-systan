@@ -12,14 +12,15 @@ export default (config) => {
         baseURL,
         timeout
     })
-
     // requist拦截器
     service.interceptors.request.use((config) => {
+        console.log(config)
         config.headers["Authorization"] = getLocalStorage('shg_token') || "";
         config.headers["Content-Type"] = config.headers["Content-Type"] || "application/json";
         if (config.type == "file") {
             config.headers["content-type"] = "application/multipart/form-data";
         } else if (config.type == "form") {
+            console.log(config.type)
             config.headers["Content-type"] = "application/x-www-form-urlencoded";
         }
         if (config.method && config.method.toLowerCase() === "get") {
@@ -33,7 +34,7 @@ export default (config) => {
 
     // reponst拦截器
     service.interceptors.response.use((response) => {
-        const code = response.code;
+        const code = response.status;
         if (code === 401) {
             MessageBox.confirm("登录状态已过期，您可以继续留在该页面，或者重新登录", "系统提示", {
                 confirmButtonText: "重新登录",
@@ -43,7 +44,7 @@ export default (config) => {
                 // 调用退出登录接口
                 removeLocalStorage('shg_token')
             });
-        } else if (code !== 200) {
+        }else if (code !== 200) {
             Message({
                 message: response.data.msg,
                 type: "error",

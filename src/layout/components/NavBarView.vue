@@ -44,7 +44,7 @@
 
 <script>
 import { mapState } from "vuex";
-import menuListData from '../menuListData';
+import menuListData from '@/router/menuListData';
 export default {
   data(){
     return{
@@ -89,4 +89,4 @@ export default {
 .isCollapse .el-submenu__title .el-submenu__icon-arrow:before {
   display: none;
 }
-</style>
+</style>../../router/menuListData

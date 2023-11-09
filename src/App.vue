@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import { getTimeState } from "@/utils";
+import { getLocalStorage, getTimeState } from "@/utils";
 export default {
   data() {
     return {};
   },
   created() {
-    if(window.location.pathname=='/login') return
+    if(!getLocalStorage('shg_token')) return
     const stateMessage = getTimeState();
     this.$notify({
           title: '消息提示',

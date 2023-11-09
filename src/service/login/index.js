@@ -1,8 +1,10 @@
-// import request from '@/utils/request';
+import request from '@/utils/request';
 
-// export const handleCaptchaRequest = async() =>{
-//     return await request({
-//         method:'get',
-//         url:''
-//     });
-// }
+export const handleLoginRequest = async(data) =>{
+    return await request({
+        method:'post',
+        type:'form',
+        url:'/login',
+        data
+    });
+}

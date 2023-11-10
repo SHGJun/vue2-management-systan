@@ -114,7 +114,7 @@
 <script>
 import { handleRegisterRequest } from "@/api/login";
 import { getTimeState } from "@/utils";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -172,7 +172,7 @@ export default {
       });
     },
     // 注册
-    handleRegister(formEl){
+    handleRegister(formEl) {
       if (!formEl) return;
       this.$refs.loginformRef.validate((valid, fields) => {
         if (!valid) return;
@@ -181,26 +181,28 @@ export default {
           username: this.loginForm.username,
           password: this.loginForm.password,
         };
-        handleRegisterRequest(registerForm).then((res)=>{
-          if(res.code == 200){
-            this.loginForm = {};
+        handleRegisterRequest(registerForm).then((res) => {
+          if (res.code == 200) {
+            Object.keys(this.loginForm).forEach((key) => {
+              this.$set(this.loginForm, key, '');
+            });
             this.$message({
               type: "success",
-              message: '注册成功',
+              message: "注册成功",
             });
             this.loading = false;
             this.isLogin = true;
-          }else{
+          } else {
             this.$message({
               type: "error",
               message: res.message,
             });
             this.loading = false;
           }
-        })
+        });
       });
     },
-    ...mapActions(['Login'])
+    ...mapActions(["Login"]),
   },
 };
 </script>

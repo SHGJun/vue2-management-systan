@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import navCollapse from './navCollapse'
+import navCollapse from './modules/navCollapse';
+import user from './modules/user';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -9,6 +10,7 @@ const store = new Vuex.Store({
     actions:{},
     getters:{},
     modules:{
+        user,
         navCollapse,
     }
 })

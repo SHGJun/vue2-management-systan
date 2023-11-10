@@ -7,7 +7,8 @@
       </div>
       <!-- 右布局 -->
       <div class="input-format">
-        <div class="form_content">
+        <!-- 登录 -->
+        <div class="form_content login-form" v-if="isLogin">
           <!-- 表单 -->
           <el-form
             ref="loginformRef"
@@ -35,23 +36,6 @@
                 show-password
               />
             </el-form-item>
-            <!-- 验证码 -->
-            <!-- <el-form-item prop="captcha" class="captcha">
-              <el-input
-                v-model="loginForm.captcha"
-                placeholder="请输入验证码"
-                clearable
-              /> -->
-            <!-- <el-button
-                @click="handleCaptcha"
-                :disabled="captchaObj.disable"
-                >{{ captchaObj.text }}</el-button
-              > -->
-            <!-- </el-form-item> -->
-            <!-- 记住密码 -->
-            <el-form-item style="width: 100%">
-              <el-checkbox v-model="loginForm.rememberMe">记住密码</el-checkbox>
-            </el-form-item>
             <!-- 表单提交 -->
             <el-form-item style="width: 100%">
               <el-button
@@ -66,6 +50,61 @@
               </el-button>
             </el-form-item>
           </el-form>
+          <div>
+            还没有账号？点击
+            <a class="commom-style" @click="() => (isLogin = !isLogin)"
+              >注册账号</a
+            >
+          </div>
+        </div>
+        <!-- 注册 -->
+        <div class="form_content register-form" v-if="!isLogin">
+          <!-- 表单 -->
+          <el-form
+            ref="loginformRef"
+            :model="loginForm"
+            :rules="loginRules"
+            class="login-form"
+          >
+            <!-- 用户名 -->
+            <el-form-item prop="username">
+              <el-input
+                v-model="loginForm.username"
+                clearable
+                type="text"
+                placeholder="请输入用户名"
+              />
+            </el-form-item>
+            <!-- 密码 -->
+            <el-form-item prop="password">
+              <el-input
+                v-model="loginForm.password"
+                type="password"
+                placeholder="请输入密码"
+                clearable
+                @keyup.enter="handleRegister(loginForm)"
+                show-password
+              />
+            </el-form-item>
+            <!-- 表单提交 -->
+            <el-form-item style="width: 100%">
+              <el-button
+                :loading="loading"
+                size="default"
+                type="primary"
+                style="width: 100%"
+                @click="handleRegister(loginForm)"
+              >
+                <span v-if="!loading">注册</span>
+              </el-button>
+            </el-form-item>
+          </el-form>
+          <div>
+            已有账号？点击
+            <a class="commom-style" @click="() => (isLogin = !isLogin)"
+              >登录账号</a
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -73,9 +112,9 @@
 </template>
 
 <script>
-// import { getLocalStorage, setLocalStorage,removeLocalStorage } from "@/utils";
-import { handleLoginRequest } from "@/service/login";
-import { setLocalStorage } from "@/utils";
+import { handleRegisterRequest } from "@/api/login";
+import { getTimeState } from "@/utils";
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -83,8 +122,6 @@ export default {
       loginForm: {
         username: "",
         password: "",
-        captcha: "",
-        rememberMe: false,
       },
       //   表单校验
       loginRules: {
@@ -100,83 +137,70 @@ export default {
       },
       //   提交表单loading
       loading: false,
-      // 验证码disable
-      captchaObj: {
-        text: "发送验证码",
-        time: 30,
-        timer: null,
-        disable: false,
-      },
+      // 登录或注册
+      isLogin: true,
     };
   },
-  created() {
-    // this.captchaCount();
-  },
   methods: {
-    // 获取验证码
-    // handleCaptcha() {
-    //   this.captchaObj.disable = true;
-    //   const time = getLocalStorage("time");
-    //   if (time && time > 0) {
-    //     this.captchaObj.text = `${time}s`;
-    //     this.captchaObj.time = time;
-    //   } else {
-    //     this.captchaObj.text = `${this.captchaObj.time}s`;
-    //   }
-    //   this.captchaObj.timer = setInterval(() => {
-    //     if (this.captchaObj.time > 0) {
-    //       this.captchaObj.time--;
-    //       this.captchaObj.text = `${this.captchaObj.time}s`;
-    //       setLocalStorage("time", this.captchaObj.time);
-    //     } else {
-    //       clearInterval(this.captchaObj.timer);
-    //       this.captchaObj.time = 10;
-    //       this.captchaObj.disable = false;
-    //       this.captchaObj.text = "重新发送";
-    //     }
-    //   }, 1000);
-    // },
-
-    // 验证码倒计时防刷新浏览器
-    // captchaCount() {
-    //   const time = getLocalStorage("time");
-    //   if (time && time > 0) {
-    //     this.text = `${time}s`;
-    //     this.time = time;
-    //     this.handleCaptcha();
-    //   }else{
-    //     removeLocalStorage('time');
-    //   }
-    // },
-    // 提交表单
+    // 登录
     handleLogin(formEl) {
       if (!formEl) return;
-
       this.$refs.loginformRef.validate((valid, fields) => {
-        console.log(`fields:${fields}`);
         if (!valid) return;
         this.loading = true;
         const loginForm = {
-          username:this.loginForm.username,
-          password:this.loginForm.password
-        }
-        handleLoginRequest(loginForm).then((res) => {
-          console.log(res);
-          if(res.code==200){
-            this.$message.success("登录成功");
-            this.loading = false;
-            setLocalStorage('shg_token',res.data.token)
-            this.$router.push('/');
-          }else{
+          username: this.loginForm.username,
+          password: this.loginForm.password,
+        };
+        this.Login(loginForm).then((res) => {
+          if (res.code == 200) {
+            this.$router.push("/");
+            const stateMessage = getTimeState();
+            this.$notify({
+              title: stateMessage,
+              message: `欢迎登录 ${loginForm.username}`,
+              position: "top-right",
+            });
+          } else {
             this.$message({
-              type:'error',
-              message:res.message
-            })
+              type: "error",
+              message: res.message,
+            });
             this.loading = false;
           }
         });
       });
     },
+    // 注册
+    handleRegister(formEl){
+      if (!formEl) return;
+      this.$refs.loginformRef.validate((valid, fields) => {
+        if (!valid) return;
+        this.loading = true;
+        const registerForm = {
+          username: this.loginForm.username,
+          password: this.loginForm.password,
+        };
+        handleRegisterRequest(registerForm).then((res)=>{
+          if(res.code == 200){
+            this.loginForm = {};
+            this.$message({
+              type: "success",
+              message: '注册成功',
+            });
+            this.loading = false;
+            this.isLogin = true;
+          }else{
+            this.$message({
+              type: "error",
+              message: res.message,
+            });
+            this.loading = false;
+          }
+        })
+      });
+    },
+    ...mapActions(['Login'])
   },
 };
 </script>
@@ -423,6 +447,16 @@ export default {
         display: none;
       }
     }
+  }
+}
+.login-form,
+.register-form {
+  .commom-style {
+    color: #1a68ff;
+  }
+  .commom-style:hover {
+    cursor: pointer;
+    color: #5088ff;
   }
 }
 </style>

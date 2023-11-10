@@ -152,7 +152,8 @@ export default {
           username: this.loginForm.username,
           password: this.loginForm.password,
         };
-        this.Login(loginForm).then((res) => {
+        // 发起登录请求
+        this.loginRequest(loginForm).then((res) => {
           if (res.code == 200) {
             this.$router.push("/");
             const stateMessage = getTimeState();
@@ -181,6 +182,7 @@ export default {
           username: this.loginForm.username,
           password: this.loginForm.password,
         };
+        // 发起注册请求
         handleRegisterRequest(registerForm).then((res) => {
           if (res.code == 200) {
             Object.keys(this.loginForm).forEach((key) => {
@@ -202,7 +204,7 @@ export default {
         });
       });
     },
-    ...mapActions(["Login"]),
+    ...mapActions(["loginRequest"]),
   },
 };
 </script>

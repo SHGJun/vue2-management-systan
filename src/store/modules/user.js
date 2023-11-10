@@ -12,7 +12,7 @@ export default {
     },
     actions: {
         // 登录
-        Login({ commit }, userInfo) {
+        loginRequest({ commit }, userInfo) {
             return new Promise((resolve, reject) => {
                 handleLoginRequest(userInfo).then((res) => {
                     if (res.code == 200) {

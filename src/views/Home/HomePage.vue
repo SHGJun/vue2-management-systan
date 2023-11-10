@@ -20,7 +20,7 @@
         联系QQ：177540246
       </p>
       <br>
-      <p>
+      <p @click="handle">
         基本架构正在火速开发中.......
       </p>
     </el-card>
@@ -28,11 +28,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   data() {
     return {};
   },
-  methods: {},
+ computed:{
+  ...mapState(['user'])
+ },
+  methods: {
+    handle(){
+      console.log(this.user)
+    },
+  },
 };
 </script>
 

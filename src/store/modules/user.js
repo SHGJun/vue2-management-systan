@@ -1,44 +1,39 @@
-import { handleLoginRequest,handleRegisterRequest } from "@/api/login";
+import { handleLoginRequest } from "@/api/login";
 import { setLocalStorage } from "@/utils";
 
 export default {
     state: {
-        userInfo: {
-            id: '',
-            uasername: '',
+            userId: '',
+            username: '',
             password: '',
-            shgToken: '',
+            shg_token: '',
+    },
+    mutations:{
+        getUserInfo(state){
+            const userInfo = state;
+            return userInfo;
+        },
+        setUserInfo(state,data){
+            state.userId = data.id;
+            state.username = data.username;
+            state.password = data.password;
+            state.shg_token = data.token
         }
     },
     actions: {
         // 登录
-        loginRequest({ commit }, userInfo) {
+        loginRequest(content, userInfo) {
             return new Promise((resolve, reject) => {
                 handleLoginRequest(userInfo).then((res) => {
                     if (res.code == 200) {
-                        this.userInfo = res.data
-                        const token = res.data.token;
+                        const token = res.data.token;                                 
                         if(!token) return;
                         setLocalStorage("shg_token", token);
+                        content.commit('setUserInfo',res.data)
                     }
                     resolve(res);
                 })
                     .catch((error) => {
-                        reject(error);
-                    });
-            })
-        },
-        // 注册
-        Register({ commit }, userInfo) {
-            return new Promise((resolve, reject) => {
-                handleRegisterRequest(userInfo).then((res)=>{
-                    // if(res.code == 200){
-
-                    // }else{
-
-                    // }
-                    resolve(res);
-                }).catch((error) => {
                         reject(error);
                     });
             })

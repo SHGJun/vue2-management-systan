@@ -5,10 +5,8 @@ module.exports = defineConfig({
 
   // 项目打包的根目录，默认 "dist"
   outputDir: "dist",
-
   // 项目打包的静态资源存放目录，默认 ""
   assetsDir: "",
-
   // 项目打包的index.html输出路径，默认 "index.html"
   indexPath: "index.html",
 
@@ -16,7 +14,7 @@ module.exports = defineConfig({
   pages: undefined,
 
   // 开发环境 eslint 异常信息提示位置，默认 "default" 在浏览器窗口提示，为 true 在控制台提示
-  lintOnSave: "default",
+  lintOnSave: false,
 
   // 项目打包是否生成js的 source map 调试包，默认 true，生产部署设置为false
   productionSourceMap: false,
@@ -36,6 +34,10 @@ module.exports = defineConfig({
   // devServer 支持 webpack-dev-server 所有选项
   devServer: {
     open: true,
+    // 解决页面弹出红色报错遮罩层
+    client: {
+      overlay: false,
+    },
     proxy: {
       "/api": {
         target: "http://127.0.0.1:9999", // 后端服务域名

@@ -22,17 +22,26 @@ const routes = [
             {
                 name:'home',
                 path:'/home',
-                component:HomePage
+                component:HomePage,
+                meta:{
+                    titles:['首页']
+                }
             },
             {
                 name:'chart',
                 path:'/chart',
-                component:ChartPage
+                component:ChartPage,
+                meta:{
+                    titles:['图表']
+                }
             },
             {
                 name:'baiduMap',
                 path:'/baiduMap',
-                component:BaiduMapPage
+                component:BaiduMapPage,
+                meta:{
+                    titles:['地图']
+                }
             },
             
         ]

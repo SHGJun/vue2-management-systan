@@ -24,7 +24,11 @@ export const setLocalStorage = (name, val) => {
  * @param {String} key Storage名称
  */
 export const removeLocalStorage = (name) => {
-    localStorage.removeItem(name);
+    if(localStorage.getItem(name)){
+        localStorage.removeItem(name);
+    }else{
+        sessionStorage.removeItem(name);
+    }
 }
 
 /**

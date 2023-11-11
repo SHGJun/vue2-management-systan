@@ -10,15 +10,13 @@
     <el-menu
       :router="true"
       unique-opened
-      default-active="2"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       background-color="#3f89fb"
       text-color="#fff"
       active-text-color="#ffd04b"
       :collapse="isCollapse"
       :collapse-transition="false"
+      :default-active="$route.path"
     >
       <div v-for="item in menuListData" :key="item.id">
         <el-submenu :index="item.path" v-if="item.children">
@@ -53,10 +51,6 @@ export default {
   },
   computed: {
     ...mapState({ isCollapse: (state) => state.navCollapse.isCollapse }),
-  },
-  methods: {
-    handleOpen() {},
-    handleClose() {},
   },
 };
 </script>

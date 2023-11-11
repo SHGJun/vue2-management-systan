@@ -1,7 +1,7 @@
 export default [
     {
         title: "首页",
-        path: '/',
+        path: '/home',
         icon: 'el-icon-document',
     },
     {

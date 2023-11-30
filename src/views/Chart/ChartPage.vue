@@ -136,7 +136,7 @@ export default {
             },
           },
           {
-            name: "Baidu",
+            name: "Map",
             type: "bar",
             barWidth: 5,
             stack: "Search Engine",

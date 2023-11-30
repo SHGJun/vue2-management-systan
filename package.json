@@ -17,6 +17,7 @@
     "reset-css": "^5.0.2",
     "sass-loader": "^13.3.2",
     "vue": "^2.5.17",
+    "vue-amap": "^0.5.10",
     "vue-router": "^2.8.1",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.1.0"

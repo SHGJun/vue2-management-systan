@@ -30,7 +30,13 @@ module.exports = defineConfig({
     // 配置css的loader选项：css-loader、postcss-loader、less-loader、sass-loader，stylus-loader，默认 {}
     loaderOptions: {},
   },
-
+  // 高德地图API
+  configureWebpack:{
+    externals:{
+      AMap:'AMap',
+      AMapUI:'AMapUI'
+    }
+  },
   // devServer 支持 webpack-dev-server 所有选项
   devServer: {
     open: true,

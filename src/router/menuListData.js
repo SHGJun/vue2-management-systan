@@ -11,7 +11,7 @@ export default [
     },
     {
         title: "地图",
-        path: '/baiduMap',
+        path: '/map',
         icon: 'el-icon-location',
     },
 ]

@@ -5,7 +5,7 @@ import HomePage from '@/views/Home/HomePage.vue'
 import { getLocalStorage } from '@/utils';
 import LoginPage from '@/views/Login/LoginPage.vue'
 import TestPage from '@/views/test/TestPage.vue'
-import BaiduMapPage from '@/views/BaiduMap/BaiduMapPage.vue'
+import MapPage from '@/views/Map/MapPage.vue'
 import ChartPage from '@/views/Chart/ChartPage.vue'
 import errPage from '@/views/errPage.vue'
 
@@ -36,9 +36,9 @@ const routes = [
                 }
             },
             {
-                name:'baiduMap',
-                path:'/baiduMap',
-                component:BaiduMapPage,
+                name:'map',
+                path:'/map',
+                component:MapPage,
                 meta:{
                     titles:['地图']
                 }
